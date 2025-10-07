@@ -1,22 +1,94 @@
+from operator import truediv
+
+from csv import reader
+
+from matplotlib.pyplot import annotate
+
+import csv
+
 def carica_da_file(file_path):
     """Carica i libri dal file"""
     # TODO
-    #prova
+    try:
+        with open("biblioteca.csv", "r") as infile:
+            with open(file_path, "r") as infile:
+                prima_riga = infile.readline().strip()
+                num_sezioni = int(prima_riga)
+                biblioteca = [[] for _ in range(num_sezioni)]
+        csv_reader = csv.reader(infile)
+        for info in csv_reader:
+            titolo = info[0]
+            autore = info[1]
+            anno = int(info[2])
+            pagine = int(info[3])
+            sezione = int(info[4])
+            libro = {
+                "titolo": titolo,
+                "autore": autore,
+                "anno": anno,
+                "pagine": pagine,
+                "sezione": sezione
+            }
+        biblioteca[sezione - 1].append(libro)
+        biblioteca[sezione - 1].append(libro)
+    return biblioteca
 
+    except FileNotFoundError:
+        print("File not found")
+        return None
 
 def aggiungi_libro(biblioteca, titolo, autore, anno, pagine, sezione, file_path):
     """Aggiunge un libro nella biblioteca"""
     # TODO
 
+    if sezione < 1 or sezione > len(biblioteca):
+        return None
+    titolo_ass=titolo.casefold()
+    for lista in biblioteca:
+        for libro in lista:
+            if libro["titolo"].casefold()==titolo_ass:
+                return None
+    libro = {
+    "titolo": titolo,
+    "autore": autore,
+    "anno": anno,
+    "pagine": pagine,
+    "sezione": sezione
+    }
+    biblioteca[sezione-1].append(libro)
+    try:
+        with open(file_path,"a",newline="", encoding="utf-8") as f:
+         w = csv.writer(f)
+         w.writerow([titolo,autore,anno,pagine,sezione])
+    except FileNotFoundError :
+        print("File not found")
+        biblioteca[sezione - 1].pop()
+        return None
+    return libro
+
 
 def cerca_libro(biblioteca, titolo):
     """Cerca un libro nella biblioteca dato il titolo"""
     # TODO
+    titolo_cercato= titolo.casefold()
+    for lista in biblioteca:
+        for libro in lista:
+            if libro["titolo"].casefold()==titolo_cercato:
+                return libro
+    return None
 
 
 def elenco_libri_sezione_per_titolo(biblioteca, sezione):
     """Ordina i titoli di una data sezione della biblioteca in ordine alfabetico"""
     # TODO
+    if sezione < 1 or sezione > len(biblioteca):
+        return None
+    lista_libri=biblioteca[sezione-1]
+    titoli=[]
+    for libro in lista_libri:
+        titoli.append(libro["titolo"])
+    titoli_ordinati = sorted(titoli, key=str.casefold)
+    return titoli_ordinati
 
 
 def main():
