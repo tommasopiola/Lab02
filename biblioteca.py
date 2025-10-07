@@ -161,7 +161,5 @@ def main():
         else:
             print("Opzione non valida. Riprova.")
 
-
 if __name__ == "__main__":
     main()
-
