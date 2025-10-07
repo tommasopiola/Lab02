@@ -1,9 +1,3 @@
-from operator import truediv
-
-from csv import reader
-
-#from matplotlib.pyplot import annotate
-
 import csv
 
 def carica_da_file(file_path):
