@@ -2,7 +2,7 @@ from operator import truediv
 
 from csv import reader
 
-from matplotlib.pyplot import annotate
+#from matplotlib.pyplot import annotate
 
 import csv
 
@@ -31,11 +31,11 @@ def carica_da_file(file_path):
             }
         biblioteca[sezione - 1].append(libro)
         biblioteca[sezione - 1].append(libro)
-    return biblioteca
-
     except FileNotFoundError:
         print("File not found")
         return None
+    return biblioteca
+
 
 def aggiungi_libro(biblioteca, titolo, autore, anno, pagine, sezione, file_path):
     """Aggiunge un libro nella biblioteca"""
